@@ -3,7 +3,7 @@ package khosravi.cachelayer
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
-import khosravi.cache_layer.databinding.ActivityMainBinding
+import khosravi.cachelayer.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
