@@ -11,6 +11,13 @@ class SharedPreferenceStore(
     private val idCoder: IdEncoder<String, String> = PrefixIdEncoder(id),
 ) : CacheStore {
 
+    companion object{
+        private const val KEY_ID = "id"
+        private const val KEY_VALUE = "v"
+        private const val KEY_TIMESTAMP = "ts"
+        const val UN_AFFECTED = -1L
+    }
+
     override fun get(id: String): CacheModel = getOrNull(id)!!
 
     override fun getOrNull(id: String): CacheModel? {
@@ -19,9 +26,9 @@ class SharedPreferenceStore(
 
     private fun toCacheModel(jsonStr: String): CacheModel {
         val json = JSONObject(jsonStr)
-        val id = json.getString("id")
-        val value = json.getString("v")
-        val timeStamp = json.getLong("ts")
+        val id = json.getString(KEY_ID)
+        val value = json.getString(KEY_VALUE)
+        val timeStamp = json.getLong(KEY_TIMESTAMP)
         return CacheModel(id, value, timeStamp)
     }
 
@@ -55,9 +62,9 @@ class SharedPreferenceStore(
 
     private fun put(data: CacheModel, editor: SharedPreferences.Editor) {
         val json = JSONObject().apply {
-            put("id", data.id)
-            put("v", data.value)
-            put("ts", data.lastTimeStamp)
+            put(KEY_ID, data.id)
+            put(KEY_VALUE, data.value)
+            put(KEY_TIMESTAMP, data.lastTimeStamp)
         }.toString()
         editor.putString(idCoder.encode(id), json)
     }
@@ -74,7 +81,7 @@ class SharedPreferenceStore(
     override fun remove(id: String): Long {
         val realId = idCoder.encode(id)
         if (store.contains(realId)) {
-            return -1
+            return UN_AFFECTED
         }
         store.edit().remove(realId).apply()
         return 1
@@ -86,7 +93,7 @@ class SharedPreferenceStore(
         ids.forEach {
             val realId = idCoder.encode(it)
             if (store.contains(realId)) {
-                return -1
+                return UN_AFFECTED
             }
             edit.remove(realId)
             successCount++
