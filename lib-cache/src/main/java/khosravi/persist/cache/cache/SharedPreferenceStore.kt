@@ -104,7 +104,7 @@ class SharedPreferenceStore(
 
     override fun clear(): Long {
         val edit = store.edit()
-        val all = store.all.filter { idCoder.test(it.key) }
+        val all = store.all.filter { idCoder.isIdFormatValid(it.key) }
         all.forEach {
             edit.remove(idCoder.encode(it.key))
         }
