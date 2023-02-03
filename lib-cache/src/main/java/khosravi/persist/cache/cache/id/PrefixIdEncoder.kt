@@ -6,5 +6,5 @@ class PrefixIdEncoder(private val type: String) : IdEncoder<String, String> {
         return "${type}_${data}"
     }
 
-    override fun test(id: String): Boolean = id.startsWith("${type}_")
+    override fun isIdFormatValid(id: String): Boolean = id.startsWith("${type}_")
 }

@@ -8,8 +8,8 @@ interface IdEncoder<MODEL, ID> {
     fun encode(data: MODEL): ID
 
     /**
-     * Test decodablity of given [id], return true If can decode otherwise false
+     * Check validity format of given [id], return true If is valid otherwise false
      */
-    fun test(id: ID): Boolean
+    fun isIdFormatValid(id: ID): Boolean
 
 }
