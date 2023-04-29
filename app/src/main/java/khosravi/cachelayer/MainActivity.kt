@@ -6,9 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import com.google.gson.Gson
 import khosravi.cachelayer.databinding.ActivityMainBinding
-import khosravi.persist.cache.cache.IdOwnerString
-import khosravi.persist.cache.cache.ModelCacheStore
-import khosravi.persist.cache.cache.SharedPreferenceStore
+import khosravi.persist.cache.ModelCacheStore
+import khosravi.persist.cache.id.IdOwnerString
+import khosravi.persist.cache.sharedpreference.SharedPreferenceStore
+import kotlinx.coroutines.flow.collect
 import org.dizitart.no2.Nitrite
 
 class MainActivity : AppCompatActivity() {
@@ -37,6 +38,21 @@ class MainActivity : AppCompatActivity() {
         val prefCacheStore = SharedPreferenceStore("user", getSharedPreferences("user", Context.MODE_PRIVATE))
         val modelStore = ModelCacheStore(prefCacheStore, GsonUserModelConverter(Gson()))
         modelStoreExample(modelStore)
+    }
+
+    private fun rxBuilderExample() {
+        val prefCacheStore = SharedPreferenceStore("user", getSharedPreferences("user", Context.MODE_PRIVATE))
+        val wrapper = RxCacheStoreWrapper(prefCacheStore)
+        wrapper.getAll().subscribe {
+        }
+    }
+
+    private suspend fun flowBuilderExample() {
+        val prefCacheStore = SharedPreferenceStore("user", getSharedPreferences("user", Context.MODE_PRIVATE))
+        val wrapper = FlowCacheStoreWrapper(prefCacheStore)
+        wrapper.getAll().collect {
+
+        }
     }
 
     private fun modelStoreExample(modelStore: ModelCacheStore<User>) {
