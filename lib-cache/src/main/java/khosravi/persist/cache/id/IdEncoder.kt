@@ -1,4 +1,4 @@
-package khosravi.persist.cache.cache.id
+package khosravi.persist.cache.id
 
 interface IdEncoder<MODEL, ID> {
 

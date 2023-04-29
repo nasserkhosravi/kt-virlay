@@ -1,9 +1,10 @@
-package khosravi.persist.cache.cache
+package khosravi.persist.cache.sharedpreference
 
 import android.content.SharedPreferences
 import khosravi.persist.cache.adapter.SingleModelConverter
-import khosravi.persist.cache.cache.id.IdEncoder
-import khosravi.persist.cache.cache.id.PrefixIdEncoder
+import khosravi.persist.cache.singletype.SingleItemStore
+import khosravi.persist.cache.id.IdEncoder
+import khosravi.persist.cache.id.PrefixIdEncoder
 
 class SharedPreferenceSingleItemStore<T>(
     private val id: String,

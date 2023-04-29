@@ -1,14 +1,15 @@
-package khosravi.persist.cache.cache
+package khosravi.persist.cache
 
 import khosravi.persist.cache.adapter.SingleModelConverter
-import khosravi.persist.cache.cache.id.IdEncoder
+import khosravi.persist.cache.id.IdEncoder
+import khosravi.persist.cache.id.IdOwner
 import java.util.*
 
 class ModelCacheStore<T> constructor(
     private val cacheStore: CacheStore,
     private val converter: SingleModelConverter<T>,
     private val idCoder: IdEncoder<String, String>? = null
-) : BasicStore<String, T, T, Long> where T : IdOwner<String> {
+) : BasicStore<String, T, List<T>, T, Long> where T : IdOwner<String> {
 
     override fun get(id: String): T {
         return cacheStore.get(idCoder?.encode(id) ?: id).toModel()

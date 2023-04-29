@@ -1,4 +1,4 @@
-package khosravi.persist.cache.cache
+package khosravi.persist.cache.singletype
 
 interface SingleItemStore<T> {
 

@@ -1,4 +1,4 @@
-package khosravi.persist.cache.cache
+package khosravi.persist.cache.id
 
 interface IdOwner<Type> {
     fun getIdValue(): Type

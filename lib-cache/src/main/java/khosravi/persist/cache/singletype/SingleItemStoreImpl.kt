@@ -1,6 +1,8 @@
-package khosravi.persist.cache.cache
+package khosravi.persist.cache.singletype
 
 import khosravi.persist.cache.adapter.SingleModelConverter
+import khosravi.persist.cache.CacheModel
+import khosravi.persist.cache.CacheStore
 import java.util.*
 
 open class SingleItemStoreImpl<T>(

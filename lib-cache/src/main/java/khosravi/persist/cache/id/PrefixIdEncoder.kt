@@ -1,4 +1,4 @@
-package khosravi.persist.cache.cache.id
+package khosravi.persist.cache.id
 
 class PrefixIdEncoder(private val type: String) : IdEncoder<String, String> {
 

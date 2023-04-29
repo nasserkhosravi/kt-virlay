@@ -1,7 +1,7 @@
 package khosravi.cachelayer
 
-import khosravi.persist.cache.cache.CacheModel
-import khosravi.persist.cache.cache.CacheStore
+import khosravi.persist.cache.CacheModel
+import khosravi.persist.cache.CacheStore
 import org.dizitart.no2.Document
 import org.dizitart.no2.Filter
 import org.dizitart.no2.NitriteCollection

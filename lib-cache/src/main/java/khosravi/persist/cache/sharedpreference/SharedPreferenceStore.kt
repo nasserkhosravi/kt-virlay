@@ -1,8 +1,10 @@
-package khosravi.persist.cache.cache
+package khosravi.persist.cache.sharedpreference
 
 import android.content.SharedPreferences
-import khosravi.persist.cache.cache.id.IdEncoder
-import khosravi.persist.cache.cache.id.PrefixIdEncoder
+import khosravi.persist.cache.CacheModel
+import khosravi.persist.cache.CacheStore
+import khosravi.persist.cache.id.IdEncoder
+import khosravi.persist.cache.id.PrefixIdEncoder
 import org.json.JSONObject
 
 class SharedPreferenceStore(

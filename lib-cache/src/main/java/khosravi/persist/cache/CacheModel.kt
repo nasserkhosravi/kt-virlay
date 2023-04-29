@@ -1,4 +1,6 @@
-package khosravi.persist.cache.cache
+package khosravi.persist.cache
+
+import khosravi.persist.cache.id.IdOwner
 
 open class CacheModel(
     val id: String,
