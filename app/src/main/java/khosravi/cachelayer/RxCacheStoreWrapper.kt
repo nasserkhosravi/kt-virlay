@@ -3,52 +3,59 @@ package khosravi.cachelayer
 import io.reactivex.Observable
 import khosravi.persist.cache.CacheModel
 import khosravi.persist.cache.CacheStore
+import khosravi.persist.cache.CacheStoreWrapper
 
-class RxCacheStore(private val cacheStore: CacheStore) {
+class RxCacheStoreWrapper(private val cacheStore: CacheStore) : CacheStoreWrapper<
+        Observable<CacheModel>,
+        Observable<Optional<CacheModel>>,
+        Observable<List<CacheModel>>,
+        Observable<Boolean>,
+        Observable<Long>
+        > {
 
-    fun get(id: String): Observable<CacheModel> {
+    override fun get(id: String): Observable<CacheModel> {
         return Observable.create {
             it.onNext(cacheStore.get(id))
             it.onComplete()
         }
     }
 
-    fun getOrNull(id: String): Observable<Optional<CacheModel>> {
+    override fun getOrNull(id: String): Observable<Optional<CacheModel>> {
         return Observable.create {
             it.onNext(cacheStore.getOrNull(id).toOptional())
             it.onComplete()
         }
     }
 
-    fun has(id: String): Observable<Boolean> {
+    override fun has(id: String): Observable<Boolean> {
         return Observable.create {
             it.onNext(cacheStore.has(id))
             it.onComplete()
         }
     }
 
-    fun getAll(): Observable<List<CacheModel>> {
+    override fun getAll(): Observable<List<CacheModel>> {
         return Observable.create {
             it.onNext(cacheStore.getAll())
             it.onComplete()
         }
     }
 
-    fun getAllByIds(ids: List<String>): Observable<List<CacheModel>> {
+    override fun getAllByIds(ids: List<String>): Observable<List<CacheModel>> {
         return Observable.create {
             it.onNext(cacheStore.getAllByIds(ids))
             it.onComplete()
         }
     }
 
-    fun put(data: CacheModel): Observable<Long> {
+    override fun put(data: CacheModel): Observable<Long> {
         return Observable.create {
             it.onNext(cacheStore.put(data))
             it.onComplete()
         }
     }
 
-    fun putAll(data: List<CacheModel>): Observable<Long> {
+    override fun putAll(data: List<CacheModel>): Observable<Long> {
         return Observable.create {
             it.onNext(cacheStore.putAll(data))
             it.onComplete()
