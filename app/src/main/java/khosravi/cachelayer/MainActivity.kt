@@ -6,11 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import com.google.gson.Gson
 import khosravi.cachelayer.databinding.ActivityMainBinding
+import khosravi.persist.cache.CacheModel
+import khosravi.persist.cache.CacheStore
 import khosravi.persist.cache.ModelCacheStore
 import khosravi.persist.cache.id.IdOwnerString
 import khosravi.persist.cache.sharedpreference.SharedPreferenceStore
-import kotlinx.coroutines.flow.collect
 import org.dizitart.no2.Nitrite
+import java.util.Date
 
 class MainActivity : AppCompatActivity() {
 
@@ -78,6 +80,30 @@ class MainActivity : AppCompatActivity() {
 
         modelStore.clear()
         assert(modelStore.getAll().isEmpty())
+    }
+
+    private fun cacheStoreExample(store: CacheStore) {
+        val objId = "someId"
+        val timeStamp = Date().time
+        val data = CacheModel(objId, "your custom data", timeStamp)
+        store.put(data)
+
+        //retrieving
+        val gotData = store.get(id = objId)
+        assert(gotData == CacheModel(objId, "your custom data", timeStamp))
+
+        //removing
+        store.remove(objId)
+        assert(store.getOrNull(objId) == null)
+        assert(!store.has(objId))
+
+        //create or updating by list
+        val objDataList = listOf(data)
+        store.putAll(objDataList)
+        assert(store.getAll() == objDataList)
+
+        store.clear()
+        assert(store.getAll().isEmpty())
     }
 }
 
