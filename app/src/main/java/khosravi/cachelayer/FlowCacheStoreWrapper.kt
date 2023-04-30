@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.flow
 
 class FlowCacheStoreWrapper(private val cacheStore: CacheStore) : CacheStoreWrapper<
         Flow<CacheModel>,
-        Flow<Optional<CacheModel>>,
+        Flow<CacheModel?>,
         Flow<List<CacheModel>>,
         Flow<Boolean>,
         Flow<Long>
@@ -16,7 +16,7 @@ class FlowCacheStoreWrapper(private val cacheStore: CacheStore) : CacheStoreWrap
 
     override fun get(id: String) = flow { emit(cacheStore.get(id)) }
 
-    override fun getOrNull(id: String) = flow { emit(cacheStore.getOrNull(id).toOptional()) }
+    override fun getOrNull(id: String) = flow { emit(cacheStore.getOrNull(id)) }
 
     override fun has(id: String) = flow { emit(cacheStore.has(id)) }
 
